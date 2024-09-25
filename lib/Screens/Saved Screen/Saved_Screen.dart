@@ -75,8 +75,7 @@ class _SavedScreenState extends State<SavedScreen> {
                             builder: (context) =>
                                 ShowSelected(id: saved[x][3]))),
                     child: Container(
-                      height: 130,
-                      width: double.infinity,
+                      width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           color: Colors.white12,
@@ -84,12 +83,18 @@ class _SavedScreenState extends State<SavedScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Image.network(saved.elementAt(x)[2]),
+                          Container(
+                            height: 130,
+                            width: 100,
+                            margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(image: NetworkImage(
+                                          saved.elementAt(x)[2]))
+                          ),
                           ),
                           SizedBox(
                             width: 150,
+                            height: 170,
                             child: Padding(
                               padding: const EdgeInsets.all(5),
                               child: Column(
