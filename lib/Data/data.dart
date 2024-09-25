@@ -54,7 +54,7 @@ class Api {
 
   get_searched_data(String movie) async {
     Response request = await dio
-        .get("https://api.themoviedb.org/3/search/movie?query=$movie$_api_key");
+        .get("https://api.themoviedb.org/3/search/movie?query=$movie&$_api_key");
     Map<String, dynamic> dat = request.data;
     return dat["results"];
   }

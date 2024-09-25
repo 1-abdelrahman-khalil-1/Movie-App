@@ -6,14 +6,14 @@ class Headerofdisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-             padding: EdgeInsets.all(14),
+             padding: const EdgeInsets.all(14),
              child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                children: [
-                 Text(first ,style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontSize: 20)),       
+                 Text(first ,style: const TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontSize: 20)),       
                  InkWell(
                   onTap:() =>{} ,
-                  child: Text(second ,style: TextStyle(color: Colors.white  , fontSize: 15)),
+                  child: Text(second ,style: const TextStyle(color: Colors.white  , fontSize: 15)),
                  )
                ],
              ),

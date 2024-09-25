@@ -12,8 +12,6 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   TextEditingController value = TextEditingController();
   String movie = "";
-  
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,13 +21,13 @@ class _SearchState extends State<Search> {
         body: Column(
           children: [
             TextField(
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               controller: value,
               onSubmitted: (value) {
                 setState(() {
                   movie = value;
                 });
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => SearchResults(
@@ -38,14 +36,15 @@ class _SearchState extends State<Search> {
                             )));
               },
               decoration: InputDecoration(
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.search_outlined,
                   size: 35,
                   color: Colors.white38,
                 ),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide(style: BorderStyle.none, width: 0)),
+                    borderSide:
+                        const BorderSide(style: BorderStyle.none, width: 0)),
                 filled: true,
                 fillColor: Colors.white10,
               ),
