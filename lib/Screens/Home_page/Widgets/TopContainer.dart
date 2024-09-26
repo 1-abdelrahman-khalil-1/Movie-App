@@ -41,17 +41,19 @@ class _TopcontainerState extends State<Topcontainer> {
                 color: Colors.black12,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 100, top: 315),
-              child: DotsIndicator(
-                dotsCount:
-                    state.toprated_posters.isEmpty ? 1 : state.toprated_posters.length,
-                position: i,
-                decorator: DotsDecorator(
-                    activeColor: Colors.red,
-                    activeSize: const Size(18, 8),
-                    activeShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only( top: 315),
+                child: DotsIndicator(
+                  dotsCount:
+                      state.toprated_posters.isEmpty ? 1 : state.toprated_posters.length,
+                  position: i,
+                  decorator: DotsDecorator(
+                      activeColor: Colors.red,
+                      activeSize: const Size(18, 8),
+                      activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                ),
               ),
             )
           ],

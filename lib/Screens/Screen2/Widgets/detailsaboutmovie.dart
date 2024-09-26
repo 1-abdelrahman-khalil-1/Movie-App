@@ -132,7 +132,7 @@ class _DetailsaboutmovieState extends State<Detailsaboutmovie> {
                                         borderRadius: BorderRadius.circular(25),
                                         image: DecorationImage(
                                             image: NetworkImage(
-                                                "${state.actors[i][1]}"),
+                                                (state.actors[i][1] == "https://image.tmdb.org/t/p/originalnull") ? "https://i.sstatic.net/0sMFl.png" : state.actors[i][1]),
                                             fit: BoxFit.fill)),
                                   ),
                                   Text("${state.actors[i][0]}",

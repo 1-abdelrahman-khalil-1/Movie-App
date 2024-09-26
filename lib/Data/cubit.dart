@@ -339,11 +339,13 @@ class Movies_Cubit extends Cubit<Movies_state> {
       actors = [];
       List p = await service.get_actors_data(id);
       for (int i = 0; i < p.length; i++) {
-        actors.add([
+        if( p[i]["known_for_department"] =="Acting") {
+          actors.add([
           p[i]["name"],
           "https://image.tmdb.org/t/p/original${p[i]["profile_path"]}",
           p[i]["character"]
         ]);
+        }
       }
       emit(Success(
           latest_posters,
