@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:movie_app/Data/cubit.dart';
-import 'package:movie_app/Screens/Screen2/Widgets/detailsaboutmovie.dart';
-import 'package:movie_app/Screens/bottomnavigation.dart';
+import 'package:movie_app/Core/utilities/bottomnavigation.dart';
+import 'package:movie_app/Features/Data/cubit.dart';
+import 'package:movie_app/Features/Presentation/Screen2/Widgets/detailsaboutmovie.dart';
 import 'package:movie_app/main.dart';
 
 class ShowSelected extends StatefulWidget {
@@ -14,20 +14,10 @@ class ShowSelected extends StatefulWidget {
 }
 
 class _ShowSelectedState extends State<ShowSelected> {
- 
- 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    BlocProvider.of<Movies_Cubit>(context).get_movie(widget.id);
-    BlocProvider.of<Movies_Cubit>(context).get_similar(widget.id);
-    BlocProvider.of<Movies_Cubit>(context).get_actors(widget.id);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<Movies_Cubit, Movies_state>(builder: (context, state) {
+     
       if (state is Loading) {
         return const SafeArea(
           child: Scaffold(
@@ -58,12 +48,13 @@ class _ShowSelectedState extends State<ShowSelected> {
                       Container(
                         margin: const EdgeInsets.only(top: 318),
                         decoration: const BoxDecoration(boxShadow: [
-                          const BoxShadow(
+                           BoxShadow(
                             blurStyle: BlurStyle.normal,
                             blurRadius: 70,
                             color: Color.fromARGB(236, 0, 0, 0),
                           )
-                        ]),
+                        ]
+                        ),
                         height: 80,
                         width: double.infinity,
                       ),
@@ -83,7 +74,7 @@ class _ShowSelectedState extends State<ShowSelected> {
                                     color: Colors.white),
                                 textAlign: TextAlign.center,
                               ),
-                              Container(
+                            SizedBox(
                                 height: 60,
                                 width: 250,
                                 child: Text(
@@ -113,6 +104,7 @@ class _ShowSelectedState extends State<ShowSelected> {
                                     Icons.arrow_back_ios_new_rounded,
                                     color: Colors.white,
                                   ))),
+                                  
                           IconButton(
                               onPressed: () {
                                 if (state.selected[widget.id] == true) {

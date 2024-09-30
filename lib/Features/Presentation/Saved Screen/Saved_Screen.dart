@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/Screens/Screen2/screen2.dart';
-import 'package:movie_app/Screens/bottomnavigation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/Core/utilities/bottomnavigation.dart';
+import 'package:movie_app/Features/Data/cubit.dart';
+import 'package:movie_app/Features/Presentation/Screen2/screen2.dart';
+
 import 'package:movie_app/main.dart';
 
 class SavedScreen extends StatefulWidget {
@@ -69,11 +72,15 @@ class _SavedScreenState extends State<SavedScreen> {
               child: ListView.builder(
                 itemBuilder: (context, x) {
                   return GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ShowSelected(id: saved[x][3]))),
+                    onTap: () {
+                      BlocProvider.of<Movies_Cubit>(context)
+                          .get_movie(saved[x][3]);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ShowSelected(id: saved[x][3])));
+                    },
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.all(15),
@@ -87,10 +94,10 @@ class _SavedScreenState extends State<SavedScreen> {
                             height: 130,
                             width: 100,
                             margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(image: NetworkImage(
-                                          saved.elementAt(x)[2]))
-                          ),
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image:
+                                        NetworkImage(saved.elementAt(x)[2]))),
                           ),
                           SizedBox(
                             width: 150,

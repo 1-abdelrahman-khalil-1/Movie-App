@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class Api {
-  String _api_key = "api_key=6d48795156109ff08dd855f091d0fce2";
+ final String _api_key = "api_key=6d48795156109ff08dd855f091d0fce2";
   Dio dio = Dio();
   get_popular_data() async {
     Response request = await dio.get(

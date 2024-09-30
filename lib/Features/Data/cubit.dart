@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/Data/data.dart';
-
+import 'package:movie_app/Features/Data/data.dart';
 abstract class Movies_state {}
 
 class Init extends Movies_state {}
@@ -17,7 +16,7 @@ class Success extends Movies_state {
       search_results,
       actors,
       sim;
-  List<Widget> toprated_posters;
+  List toprated_posters;
   int duration;
   String path, name, overview, release_date;
   double rate;
@@ -65,7 +64,7 @@ class Movies_Cubit extends Cubit<Movies_state> {
       actors = [],
       Similar_posters = [],
       sim = [];
-  List<Widget> toprated_posters = [];
+  List toprated_posters = [];
   int i = 0, duration = 0;
   String path = "", name = "", overview = "", release_date = "";
   double rate = 0;
@@ -75,8 +74,8 @@ class Movies_Cubit extends Cubit<Movies_state> {
   Map<int, bool> selected = {};
   get_popular() async {
     emit(Loading());
-    popular_posters = [];
     try {
+      popular_posters = [];
       popular_movies = await service.get_popular_data();
       for (int i = 0; i < popular_movies.length; i++) {
         popular_posters.add([
@@ -110,9 +109,8 @@ class Movies_Cubit extends Cubit<Movies_state> {
 
   get_latest() async {
     emit(Loading());
-    latest_posters = [];
-
     try {
+      latest_posters = [];
       latest_movies = await service.get_latest_data();
       for (int i = 0; i < latest_movies.length; i++) {
         latest_posters.add([
@@ -146,17 +144,16 @@ class Movies_Cubit extends Cubit<Movies_state> {
 
   get_top_rated() async {
     emit(Loading());
-    toprated_posters = [];
-
     try {
+      toprated_posters = [];
       toprated = await service.get_top_rated();
       for (int i = 0; i < 10; i++) {
-        toprated_posters.add(Container(
+        toprated_posters.add([Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(
                         "https://image.tmdb.org/t/p/original${toprated[i]["poster_path"]}"),
-                    fit: BoxFit.fill))));
+                    fit: BoxFit.fill))) , toprated[i]["id"]]);
       }
       emit(Success(
           latest_posters,
@@ -184,9 +181,8 @@ class Movies_Cubit extends Cubit<Movies_state> {
 
   get_upcoming() async {
     emit(Loading());
-    upcoming_posters = [];
-
     try {
+      upcoming_posters = [];
       upcoming_movies = await service.get_upcoming_data();
       for (int i = 0; i < upcoming_movies.length; i++) {
         upcoming_posters.add([
@@ -220,8 +216,8 @@ class Movies_Cubit extends Cubit<Movies_state> {
 
   get_movie(int id) async {
     emit(Loading());
-    release_date = "";
     try {
+      release_date = "";
       Details = await service.get_movie_data(id);
       path = "https://image.tmdb.org/t/p/original${Details["poster_path"]}";
       name = Details["title"];
@@ -233,7 +229,6 @@ class Movies_Cubit extends Cubit<Movies_state> {
       for (int i = 0; i < 4; i++) {
         release_date += Details["release_date"][i];
       }
-
       emit(Success(
           latest_posters,
           popular_posters,
@@ -263,7 +258,6 @@ class Movies_Cubit extends Cubit<Movies_state> {
     try {
       search_results = [];
       List results = await service.get_searched_data(movie_id);
-
       for (int i = 0; i < results.length; i++) {
         path =
             "https://image.tmdb.org/t/p/original${results[i]["poster_path"]}";
@@ -339,12 +333,12 @@ class Movies_Cubit extends Cubit<Movies_state> {
       actors = [];
       List p = await service.get_actors_data(id);
       for (int i = 0; i < p.length; i++) {
-        if( p[i]["known_for_department"] =="Acting") {
+        if (p[i]["known_for_department"] == "Acting") {
           actors.add([
-          p[i]["name"],
-          "https://image.tmdb.org/t/p/original${p[i]["profile_path"]}",
-          p[i]["character"]
-        ]);
+            p[i]["name"],
+            "https://image.tmdb.org/t/p/original${p[i]["profile_path"]}",
+            p[i]["character"]
+          ]);
         }
       }
       emit(Success(

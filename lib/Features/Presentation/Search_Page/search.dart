@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/Screens/Search_Page/search_results.dart';
-import 'package:movie_app/Screens/bottomnavigation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/Core/utilities/pushNavigator.dart';
+import 'package:movie_app/Core/utilities/bottomnavigation.dart';
+import 'package:movie_app/Features/Data/cubit.dart';
+import 'package:movie_app/Features/Presentation/Search_Page/search_results.dart';
 
 class Search extends StatefulWidget {
   Search({super.key, required this.i});
@@ -27,13 +30,10 @@ class _SearchState extends State<Search> {
                 setState(() {
                   movie = value;
                 });
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SearchResults(
-                              i: 1,
-                              get_movie: movie,
-                            )));
+                BlocProvider.of<Movies_Cubit>(context).get_results(movie);
+                PushNavigator.navigateTo(context, SearchResults(
+                      i: 1,
+                    ));
               },
               decoration: InputDecoration(
                 prefixIcon: const Icon(

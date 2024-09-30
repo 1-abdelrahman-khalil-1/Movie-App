@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/Data/cubit.dart';
-import 'package:movie_app/Screens/Home_page/home.dart';
+
+import 'Features/Data/cubit.dart';
+import 'Features/Presentation/Home_page/home.dart';
+
 
 void main() {
   runApp(const MainApp());
@@ -14,7 +16,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => Movies_Cubit(),
+      create: (context) => Movies_Cubit()..get_latest()..get_popular()..get_upcoming()..get_top_rated(),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           home: Home_screen(

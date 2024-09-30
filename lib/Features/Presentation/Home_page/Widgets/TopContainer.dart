@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/Data/cubit.dart';
+import 'package:movie_app/Core/utilities/pushNavigator.dart';
+import 'package:movie_app/Features/Data/cubit.dart';
+import 'package:movie_app/Features/Presentation/Screen2/screen2.dart';
 
 class Topcontainer extends StatefulWidget {
   const Topcontainer({super.key});
@@ -20,7 +22,20 @@ class _TopcontainerState extends State<Topcontainer> {
         return Stack(
           children: [
             CarouselSlider(
-                items: state.toprated_posters,
+                items: state.toprated_posters.map((posters) {
+                  return GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<Movies_Cubit>(context)
+                            .get_movie(posters[1]);
+                            BlocProvider.of<Movies_Cubit>(context)
+                            .get_actors(posters[1]);
+                            BlocProvider.of<Movies_Cubit>(context)
+                            .get_similar(posters[1]);
+                        PushNavigator.navigateTo(
+                            context, ShowSelected(id: posters[1]));
+                      },
+                      child: posters[0]);
+                }).toList(),
                 options: CarouselOptions(
                     onPageChanged: (x, reason) {
                       setState(() {
@@ -43,10 +58,11 @@ class _TopcontainerState extends State<Topcontainer> {
             ),
             Center(
               child: Padding(
-                padding: const EdgeInsets.only( top: 315),
+                padding: const EdgeInsets.only(top: 315),
                 child: DotsIndicator(
-                  dotsCount:
-                      state.toprated_posters.isEmpty ? 1 : state.toprated_posters.length,
+                  dotsCount: state.toprated_posters.isEmpty
+                      ? 1
+                      : state.toprated_posters.length,
                   position: i,
                   decorator: DotsDecorator(
                       activeColor: Colors.red,

@@ -1,33 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:movie_app/Data/cubit.dart';
-import 'package:movie_app/Screens/Saved%20Screen/Widgets/Display_pictures.dart';
+import 'package:movie_app/Features/Data/cubit.dart';
+import 'package:movie_app/Features/Presentation/Saved%20Screen/Widgets/Display_pictures.dart';
+import 'package:movie_app/Features/Presentation/Screen2/Widgets/aboutcategories.dart';
 import 'package:navigation_view/item_navigation_view.dart';
 import 'package:navigation_view/navigation_view.dart';
 
-class about_categories extends StatelessWidget {
-  const about_categories(
-      {super.key, required this.topic, required this.x, this.genre});
 
-  final x, topic, genre;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          topic,
-          style: const TextStyle(color: Colors.white60, fontSize: 14),
-        ),
-        Text(
-          "$x",
-          style: const TextStyle(color: Colors.white, fontSize: 17),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
-  }
-}
 
 class Detailsaboutmovie extends StatefulWidget {
   const Detailsaboutmovie(
@@ -49,16 +29,8 @@ class _DetailsaboutmovieState extends State<Detailsaboutmovie> {
   int i = 0;
   List Similar_posters = [];
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    
-    Similar_posters = BlocProvider.of<Movies_Cubit>(context).Similar_posters;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    List m = [
+    List aboutORsimilar = [
       Column(
         children: [
           SizedBox(
@@ -84,6 +56,7 @@ class _DetailsaboutmovieState extends State<Detailsaboutmovie> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       about_categories(
+                      
                           topic: "Rate",
                           x: "${widget.rate.toStringAsFixed(1)}/10"),
                       about_categories(topic: "Genre", x: widget.genre),
@@ -108,6 +81,7 @@ class _DetailsaboutmovieState extends State<Detailsaboutmovie> {
                     height: 170,
                     child: BlocBuilder<Movies_Cubit, Movies_state>(
                         builder: (context, state) {
+                    Similar_posters = BlocProvider.of<Movies_Cubit>(context).Similar_posters;
                       if (state is Loading) {
                         return const SafeArea(
                           child: Scaffold(
@@ -196,7 +170,7 @@ class _DetailsaboutmovieState extends State<Detailsaboutmovie> {
                         style: TextStyle(color: Colors.teal),
                       )),
                 ]),
-            m[i],
+            aboutORsimilar[i],
           ],
         );
       }

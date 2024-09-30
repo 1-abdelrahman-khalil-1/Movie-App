@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/Screens/Home_page/home.dart';
-import 'package:movie_app/Screens/Saved%20Screen/Saved_Screen.dart';
-import 'package:movie_app/Screens/Search_Page/search.dart';
+import 'package:movie_app/Core/utilities/pushNavigator.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import '../../Features/Presentation/Home_page/home.dart';
+import '../../Features/Presentation/Saved Screen/Saved_Screen.dart';
+import '../../Features/Presentation/Search_Page/search.dart';
 
 class Bottomnavigation extends StatefulWidget {
-  Bottomnavigation({super.key, required this.i });
-    int i;
+  Bottomnavigation({super.key, required this.i});
+  int i;
   @override
   State<Bottomnavigation> createState() => _BottomnavigationState();
 }
@@ -19,23 +20,14 @@ class _BottomnavigationState extends State<Bottomnavigation> {
         onTap: (x) {
           setState(() {
             widget.i = x;
-          if(widget.i == 0)
-          {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Home_screen(i: widget.i)));
+            if (widget.i == 0) {
+              PushNavigator.navigateTo(context, Home_screen(i: widget.i));
             }
             if (widget.i == 1) {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Search(i: widget.i)));
+              PushNavigator.navigateTo(context, Search(i: widget.i));
             } else if (widget.i == 2) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SavedScreen(
-                            i: widget.i,
-                          )));
-            } 
-          
+              PushNavigator.navigateTo(context, SavedScreen(i: widget.i));
+            }
           });
         },
         items: [
@@ -53,7 +45,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
               icon: const Icon(Icons.bookmark),
               title: const Text("Saved"),
               selectedColor: Colors.red,
-              unselectedColor: Colors.white54)
+              unselectedColor: Colors.white54),
         ]);
   }
 }
