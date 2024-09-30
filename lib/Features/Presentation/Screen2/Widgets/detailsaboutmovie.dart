@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:movie_app/Core/utilities/loading.dart';
 import 'package:movie_app/Features/Data/cubit.dart';
 import 'package:movie_app/Features/Presentation/Saved%20Screen/Widgets/Display_pictures.dart';
 import 'package:movie_app/Features/Presentation/Screen2/Widgets/aboutcategories.dart';
@@ -83,14 +84,7 @@ class _DetailsaboutmovieState extends State<Detailsaboutmovie> {
                         builder: (context, state) {
                     Similar_posters = BlocProvider.of<Movies_Cubit>(context).Similar_posters;
                       if (state is Loading) {
-                        return const SafeArea(
-                          child: Scaffold(
-                              backgroundColor: Color.fromARGB(255, 10, 6, 46),
-                              body: SpinKitFadingFour(
-                                color: Colors.white,
-                                size: 60,
-                              )),
-                        );
+                        return const LoadingScreen();
                       } else if (state is Success) {
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,

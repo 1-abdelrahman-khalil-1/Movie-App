@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/Core/utilities/bottomnavigation.dart';
+import 'package:movie_app/Core/utilities/pushNavigator.dart';
 import 'package:movie_app/Features/Data/cubit.dart';
 import 'package:movie_app/Features/Presentation/Screen2/screen2.dart';
 
@@ -75,11 +76,7 @@ class _SavedScreenState extends State<SavedScreen> {
                     onTap: () {
                       BlocProvider.of<Movies_Cubit>(context)
                           .get_movie(saved[x][3]);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ShowSelected(id: saved[x][3])));
+                      PushNavigator.navigateTo(context, ShowSelected(id: saved[x][3]));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width,

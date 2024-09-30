@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:movie_app/Core/utilities/bottomnavigation.dart';
+import 'package:movie_app/Core/utilities/loading.dart';
 import 'package:movie_app/Features/Presentation/Home_page/Widgets/Displaypictures.dart';
 import 'package:movie_app/Features/Presentation/Home_page/Widgets/Headerofdisplay.dart';
 import 'package:movie_app/Features/Presentation/Home_page/Widgets/TopContainer.dart';
@@ -16,13 +17,7 @@ class Home_screen extends StatelessWidget {
       builder: (context, state) {
        
         if (state is Loading) {
-          return const SafeArea(
-              child: Scaffold( 
-                  backgroundColor: Color.fromARGB(255, 10, 6, 46),
-                  body: SpinKitFadingFour(
-                    color: Colors.white,
-                    size: 60,
-                  )));
+          return const LoadingScreen();
         } else if (state is Success) {
           return SafeArea(
               child: Scaffold(
